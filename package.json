@@ -16,13 +16,17 @@
     "db:seed": "tsx src/db/seed.ts"
   },
   "dependencies": {
+    "@orpc/client": "^1.10.2",
+    "@orpc/server": "^1.10.2",
+    "@orpc/tanstack-query": "^1.10.2",
     "@radix-ui/react-slot": "^1.2.3",
     "@t3-oss/env-nextjs": "^0.13.8",
+    "@tanstack/react-query": "^5.90.5",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.44.7",
     "lucide-react": "^0.548.0",
-    "next": "16.0.0",
+    "next": "16.0.1",
     "pg": "^8.16.3",
     "react": "19.2.0",
     "react-dom": "19.2.0",
@@ -34,8 +38,8 @@
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/pg": "^8.15.6",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
     "babel-plugin-react-compiler": "1.0.0",
     "dotenv": "^17.2.3",
     "drizzle-kit": "^0.31.5",
@@ -53,6 +57,10 @@
     "allowedDeprecatedVersions": {
       "@esbuild-kit/core-utils": "3.3.2",
       "@esbuild-kit/esm-loader": "2.6.5"
+    },
+    "overrides": {
+      "@types/react": "19.2.2",
+      "@types/react-dom": "19.2.2"
     }
   }
 }
