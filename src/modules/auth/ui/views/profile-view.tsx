@@ -55,7 +55,7 @@ export function ProfileView() {
                   alt={user.name}
                 />
                 <AvatarFallback className="text-2xl">
-                  {user.name.charAt(0)}
+                  {user.name.charAt(0).toUpperCase()}
                 </AvatarFallback>
               </Avatar>
               <div className="w-full space-y-1">

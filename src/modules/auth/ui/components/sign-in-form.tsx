@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Mail } from "lucide-react";
@@ -39,8 +39,9 @@ import { authClient } from "@/lib/auth-client";
 import { getSafeRedirect } from "@/lib/utils";
 
 export function SignInForm() {
+  const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackURL = getSafeRedirect(searchParams);
+  const redirect = getSafeRedirect(searchParams);
 
   const form = useForm<SignInSchema>({
     resolver: zodResolver(signInSchema),
@@ -55,7 +56,6 @@ export function SignInForm() {
     await authClient.signIn.email(
       {
         ...values,
-        callbackURL,
       },
       {
         onError: (ctx) => {
@@ -63,6 +63,7 @@ export function SignInForm() {
         },
         onSuccess: () => {
           toast.success("Signed in successfully");
+          setTimeout(() => router.push(redirect), 2_000);
         },
       },
     );
@@ -164,9 +165,7 @@ export function SignInForm() {
             Don&apos;t have an account?{" "}
             <Link
               href={
-                callbackURL === "/"
-                  ? "/sign-up"
-                  : `/sign-up?redirect=${callbackURL}`
+                redirect === "/" ? "/sign-up" : `/sign-up?redirect=${redirect}`
               }
               className="underline"
             >

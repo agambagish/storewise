@@ -19,15 +19,11 @@ export const metadata: Metadata = {
 
 export default function ({ children }: React.PropsWithChildren) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={cn("antialiased", font.className)}>
         <Providers>
           {children}
-          <Toaster
-            toastOptions={{ className: font.className }}
-            richColors
-            theme="light"
-          />
+          <Toaster toastOptions={{ className: font.className }} richColors />
         </Providers>
       </body>
     </html>
