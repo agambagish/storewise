@@ -80,7 +80,8 @@
           "options": {
             "style": "separatedType"
           }
-        }
+        },
+        "noNonNullAssertion": "off"
       },
       "correctness": {
         "noUnusedImports": {

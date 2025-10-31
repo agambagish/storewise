@@ -1,16 +1,8 @@
-import { onError } from "@orpc/server";
 import { RPCHandler } from "@orpc/server/fetch";
 
 import { router } from "@/orpc/router";
 
-const handler = new RPCHandler(router, {
-  interceptors: [
-    onError((error) => {
-      // biome-ignore lint/suspicious/noConsole: _
-      console.error(error);
-    }),
-  ],
-});
+const handler = new RPCHandler(router);
 
 async function handleRequest(request: Request) {
   const { response } = await handler.handle(request, {
