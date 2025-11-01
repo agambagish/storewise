@@ -6,6 +6,7 @@ import { subcategories } from "./subcategories";
 export const categories = pgTable("categories", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   label: text().notNull(),
+  emoji: text().notNull(),
   slug: text().notNull().unique(),
 });
 

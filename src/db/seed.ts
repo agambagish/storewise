@@ -8,6 +8,7 @@ const data = [
   {
     label: "Graphics",
     slug: "graphics",
+    emoji: "🎨",
     subcategories: [
       {
         label: "Icons",
@@ -30,6 +31,7 @@ const data = [
   {
     label: "UI Kits",
     slug: "ui-kits",
+    emoji: "📱",
     subcategories: [
       {
         label: "Web",
@@ -48,6 +50,7 @@ const data = [
   {
     label: "Fonts",
     slug: "fonts",
+    emoji: "✏️",
     subcategories: [
       {
         label: "Sans Serif",
@@ -66,6 +69,7 @@ const data = [
   {
     label: "Photos",
     slug: "photos",
+    emoji: "📸",
     subcategories: [
       {
         label: "Nature",
@@ -84,6 +88,7 @@ const data = [
   {
     label: "Videos",
     slug: "videos",
+    emoji: "🎬",
     subcategories: [
       {
         label: "Motion Graphics",
@@ -98,6 +103,7 @@ const data = [
   {
     label: "Audio",
     slug: "audio",
+    emoji: "🎵",
     subcategories: [
       {
         label: "Music",
@@ -118,6 +124,7 @@ const data = [
         .insert(categories)
         .values({
           label: category.label,
+          emoji: category.emoji,
           slug: category.slug,
         })
         .returning({ id: categories.id })

@@ -6,6 +6,7 @@ export const getMany = base.handler(async () => {
   const categories = await tryCatch(
     db.query.categories.findMany({
       with: { subcategories: { columns: { categoryId: false } } },
+      limit: 6,
     }),
   );
 
