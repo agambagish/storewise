@@ -5,7 +5,12 @@ import { cn } from "@/lib/utils";
 
 import "./globals.css";
 
-const font = Jost({ subsets: ["latin"] });
+import { Providers } from "@/providers";
+
+const font = Jost({
+  variable: "--font-jost",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: {
@@ -16,8 +21,10 @@ export const metadata: Metadata = {
 
 export default function ({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={cn("antialiased", font.className)}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={cn("font-sans antialiased", font.variable)}>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

@@ -2,7 +2,9 @@ import Link from "next/link";
 
 import { Github, Instagram } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { buttonVariants } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
 export function Footer() {
   return (
@@ -16,19 +18,31 @@ export function Footer() {
             </p>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon" asChild>
-              <Link
-                href="https://github.com/agambagish/storewise"
-                target="_blank"
-              >
-                <Github className="h-5 w-5" />
-              </Link>
-            </Button>
-            <Button variant="ghost" size="icon" asChild>
-              <Link href="#">
-                <Instagram className="h-5 w-5" />
-              </Link>
-            </Button>
+            <Link
+              href="https://github.com/agambagish/storewise"
+              target="_blank"
+              className={buttonVariants({
+                variant: "ghost",
+                size: "icon",
+              })}
+            >
+              <Github className="size-4" />
+            </Link>
+            <Link
+              href="https://github.com/agambagish/storewise"
+              target="_blank"
+              className={buttonVariants({
+                variant: "ghost",
+                size: "icon",
+              })}
+            >
+              <Instagram className="size-4" />
+            </Link>
+            <Separator
+              orientation="vertical"
+              className="data-[orientation=vertical]:h-4"
+            />
+            <ThemeToggle />
           </div>
         </div>
       </div>

@@ -25,7 +25,10 @@ export function StoreLogo({ name, href, color, icon }: Props) {
         className="flex aspect-square size-8 items-center justify-center rounded-lg text-white"
         style={{ backgroundColor: color }}
       >
-        <DynamicLucideIcon icon={icon} className="size-4" />
+        <DynamicLucideIcon
+          icon={icon}
+          className="size-4 text-white dark:text-black"
+        />
       </div>
       <span
         className={cn("font-bold text-[22px]", font.className)}
