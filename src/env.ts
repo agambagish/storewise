@@ -6,10 +6,12 @@ import { z } from "zod";
 export const env = createEnv({
   server: {
     DATABASE_URL: z.url(),
+    RESEND_API_KEY: z.string(),
   },
   client: {},
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
+    RESEND_API_KEY: process.env.RESEND_API_KEY,
   },
   emptyStringAsUndefined: true,
   onValidationError: (issues) => {
