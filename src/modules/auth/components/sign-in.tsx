@@ -18,6 +18,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Field, FieldDescription, FieldGroup } from "@/components/ui/field";
+import { useVerifyEmail } from "@/hooks/use-verify-email";
 import { authClient } from "@/lib/auth/client";
 
 import type { SignInSchema } from "../schema/auth-schema";
@@ -25,6 +26,12 @@ import { signInSchema } from "../schema/auth-schema";
 
 export function SignIn() {
   const router = useRouter();
+
+  const {
+    showVerifyEmailComponent,
+    triggerVerification,
+    renderVerificationComponentIfNeeded,
+  } = useVerifyEmail("sign-in");
 
   const form = useForm<SignInSchema>({
     resolver: zodResolver(signInSchema),
@@ -40,7 +47,7 @@ export function SignIn() {
       onError: (ctx) => {
         toast.error(ctx.error.message);
         if (ctx.error.status === 403) {
-          // TODO: Show verification
+          triggerVerification(values.email);
         }
       },
       onSuccess: () => {
@@ -54,6 +61,10 @@ export function SignIn() {
   }
 
   const { isSubmitting, isValid } = form.formState;
+
+  if (showVerifyEmailComponent) {
+    return renderVerificationComponentIfNeeded();
+  }
 
   return (
     <Card>

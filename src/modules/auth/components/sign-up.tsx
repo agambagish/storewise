@@ -18,12 +18,19 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Field, FieldDescription, FieldGroup } from "@/components/ui/field";
+import { useVerifyEmail } from "@/hooks/use-verify-email";
 import { authClient } from "@/lib/auth/client";
 
 import type { SignUpSchema } from "../schema/auth-schema";
 import { signUpSchema } from "../schema/auth-schema";
 
 export function SignUp() {
+  const {
+    showVerifyEmailComponent,
+    triggerVerification,
+    renderVerificationComponentIfNeeded,
+  } = useVerifyEmail("sign-up");
+
   const form = useForm<SignUpSchema>({
     resolver: zodResolver(signUpSchema),
     mode: "onChange",
@@ -45,12 +52,16 @@ export function SignUp() {
         toast.success("You're all set!", {
           description: "Your account has been created successfully.",
         });
-        // TODO: Show verification
+        triggerVerification(values.email);
       },
     });
   }
 
   const { isSubmitting, isValid } = form.formState;
+
+  if (showVerifyEmailComponent) {
+    return renderVerificationComponentIfNeeded();
+  }
 
   return (
     <Card>
