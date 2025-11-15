@@ -5,6 +5,9 @@ import { nextCookies } from "better-auth/next-js";
 import { db } from "@/db";
 
 export const auth = betterAuth({
+  emailAndPassword: {
+    enabled: true,
+  },
   rateLimit: { enabled: false },
   session: {
     cookieCache: {
