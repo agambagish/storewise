@@ -1,13 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 import { FormEmail } from "@/components/form/form-email";
-import { FormInput } from "@/components/form/form-input";
 import { FormPassword } from "@/components/form/form-password";
 import { LoadingButton } from "@/components/loading-button";
 import {
@@ -20,32 +20,35 @@ import {
 import { Field, FieldDescription, FieldGroup } from "@/components/ui/field";
 import { authClient } from "@/lib/auth/client";
 
-import type { SignUpSchema } from "../schema/auth-schema";
-import { signUpSchema } from "../schema/auth-schema";
+import type { SignInSchema } from "../schema/auth-schema";
+import { signInSchema } from "../schema/auth-schema";
 
-export function SignUp() {
-  const form = useForm<SignUpSchema>({
-    resolver: zodResolver(signUpSchema),
+export function SignIn() {
+  const router = useRouter();
+
+  const form = useForm<SignInSchema>({
+    resolver: zodResolver(signInSchema),
     mode: "onChange",
     defaultValues: {
-      name: "",
       email: "",
       password: "",
-      confirmPassword: "",
     },
   });
 
-  async function onSubmit(values: SignUpSchema) {
-    await authClient.signUp.email(values, {
+  async function onSubmit(values: SignInSchema) {
+    await authClient.signIn.email(values, {
       onError: (ctx) => {
         toast.error(ctx.error.message);
+        if (ctx.error.status === 403) {
+          // TODO: Show verification
+        }
       },
       onSuccess: () => {
         form.reset();
-        toast.success("You're all set!", {
-          description: "Your account has been created successfully.",
+        toast.success("Welcome back!", {
+          description: "You've signed in successfully.",
         });
-        // TODO: Show verification
+        router.push("/");
       },
     });
   }
@@ -55,40 +58,26 @@ export function SignUp() {
   return (
     <Card>
       <CardHeader className="text-center">
-        <CardTitle className="text-xl">Create your account</CardTitle>
+        <CardTitle className="text-xl">Welcome back</CardTitle>
         <CardDescription>
-          Enter your information below to create your account
+          Enter your email below to sign in to your account
         </CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <FieldGroup>
-            <FormInput
-              control={form.control}
-              name="name"
-              label="Name"
-              placeholder="John Doe"
-              disabled={isSubmitting}
-              autoFocus
-            />
             <FormEmail
               control={form.control}
               name="email"
               label="Email"
               placeholder="johndoe@example.com"
               disabled={isSubmitting}
+              autoFocus
             />
             <FormPassword
               control={form.control}
               name="password"
               label="Password"
-              placeholder="*****"
-              disabled={isSubmitting}
-            />
-            <FormPassword
-              control={form.control}
-              name="confirmPassword"
-              label="Confirm Password"
               placeholder="*****"
               disabled={isSubmitting}
             />
@@ -98,10 +87,10 @@ export function SignUp() {
                 disabled={isSubmitting || !isValid}
                 loading={isSubmitting}
               >
-                Create Account
+                Sign in
               </LoadingButton>
               <FieldDescription className="text-center">
-                Already have an account? <Link href="/sign-in">Sign in</Link>
+                Don&apos;t have an account? <Link href="/sign-up">Sign up</Link>
               </FieldDescription>
             </Field>
           </FieldGroup>

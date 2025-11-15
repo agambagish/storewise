@@ -23,7 +23,7 @@ export const signUpSchema = z
   });
 
 export const signInSchema = z.object({
-  email: z.email("Must be a valid email"),
+  email: signUpSchema.shape.email,
   password: z.string().nonempty("Password can't be empty"),
   rememberMe: z.boolean().optional(),
 });
