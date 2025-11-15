@@ -9,7 +9,7 @@ import { toast } from "sonner";
 import { FormEmail } from "@/components/form/form-email";
 import { FormInput } from "@/components/form/form-input";
 import { FormPassword } from "@/components/form/form-password";
-import { Button } from "@/components/ui/button";
+import { LoadingButton } from "@/components/loading-button";
 import {
   Card,
   CardContent,
@@ -18,7 +18,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Field, FieldDescription, FieldGroup } from "@/components/ui/field";
-import { Spinner } from "@/components/ui/spinner";
 import { authClient } from "@/lib/auth/client";
 
 import type { SignUpSchema } from "../schema/sign-up-schema";
@@ -94,10 +93,13 @@ export function SignUp() {
               disabled={isSubmitting}
             />
             <Field>
-              <Button type="submit" disabled={isSubmitting || !isValid}>
-                {isSubmitting && <Spinner />}
+              <LoadingButton
+                type="submit"
+                disabled={isSubmitting || !isValid}
+                loading={isSubmitting}
+              >
                 Create Account
-              </Button>
+              </LoadingButton>
               <FieldDescription className="text-center">
                 Already have an account? <Link href="/sign-in">Sign in</Link>
               </FieldDescription>
