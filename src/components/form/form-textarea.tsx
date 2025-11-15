@@ -9,7 +9,7 @@ export function FormTextarea<T extends FieldValues>(props: BaseProps<T>) {
     <FormBase {...props}>
       {(field) => (
         <Textarea
-          autoComplete="off"
+          autoComplete="nope"
           spellCheck="false"
           className="resize-none"
           {...field}
