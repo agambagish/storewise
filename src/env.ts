@@ -9,6 +9,7 @@ export const env = createEnv({
     RESEND_API_KEY: z.string(),
     BETTER_AUTH_SECRET: z.string(),
     BETTER_AUTH_URL: z.url(),
+    NODE_ENV: z.enum(["development", "production"]).default("development"),
   },
   client: {
     NEXT_PUBLIC_BASE_URL: z.url(),
@@ -19,6 +20,7 @@ export const env = createEnv({
     BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET,
     BETTER_AUTH_URL: process.env.BETTER_AUTH_URL,
     NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
+    NODE_ENV: process.env.NODE_ENV,
   },
   emptyStringAsUndefined: true,
   onValidationError: (issues) => {
