@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import type {
   Control,
   ControllerProps,
@@ -51,8 +53,9 @@ export function FormBase<T extends FieldValues>({
   autoFocus,
   horizontal,
   controlFirst,
+  forgotPassword,
   children,
-}: Props<T>) {
+}: Props<T> & { forgotPassword?: boolean }) {
   return (
     <Controller
       control={control}
@@ -60,7 +63,19 @@ export function FormBase<T extends FieldValues>({
       render={({ field, fieldState }) => {
         const labelElement = (
           <>
-            <FieldLabel htmlFor={field.name}>{label}</FieldLabel>
+            {forgotPassword ? (
+              <div className="flex items-center">
+                <FieldLabel htmlFor={field.name}>{label}</FieldLabel>
+                <Link
+                  href="/forgot-password"
+                  className="ml-auto text-sm underline-offset-4 hover:underline"
+                >
+                  Forgot your password?
+                </Link>
+              </div>
+            ) : (
+              <FieldLabel htmlFor={field.name}>{label}</FieldLabel>
+            )}
             {description && <FieldDescription>{description}</FieldDescription>}
           </>
         );

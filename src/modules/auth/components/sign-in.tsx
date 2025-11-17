@@ -91,6 +91,7 @@ export function SignIn() {
               label="Password"
               placeholder="*****"
               disabled={isSubmitting}
+              forgotPassword
             />
             <Field>
               <LoadingButton

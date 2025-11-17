@@ -3,12 +3,26 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
 
 import { db } from "@/db";
-import { generateVerifyEmail, sendEmail } from "@/lib/email";
+import {
+  generateResetPasswordEmail,
+  generateVerifyEmail,
+  sendEmail,
+} from "@/lib/email";
 
 export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,
+    sendResetPassword: async ({ user, url }) => {
+      await sendEmail({
+        to: user.email,
+        subject: "Reset your password on Storewise",
+        text: generateResetPasswordEmail({
+          name: user.name,
+          url,
+        }),
+      });
+    },
   },
   emailVerification: {
     autoSignInAfterVerification: true,

@@ -12,7 +12,11 @@ import {
   InputGroupInput,
 } from "@/components/ui/input-group";
 
-export function FormPassword<T extends FieldValues>(props: BaseProps<T>) {
+export function FormPassword<T extends FieldValues>(
+  props: BaseProps<T> & {
+    forgotPassword?: boolean;
+  },
+) {
   const [isVisible, setIsVisible] = useState(false);
 
   const toggle = useCallback(() => {
