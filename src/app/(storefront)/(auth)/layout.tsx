@@ -1,10 +1,15 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 import { PageCenter } from "@/components/page-center";
 import { StoreLogo } from "@/components/store-logo";
 import { FieldDescription } from "@/components/ui/field";
+import { getCurrentUser } from "@/lib/auth/helpers";
 
-export default function ({ children }: { children: React.ReactNode }) {
+export default async function ({ children }: { children: React.ReactNode }) {
+  const user = await getCurrentUser();
+  if (user !== null) redirect("/");
+
   return (
     <PageCenter gap="lg">
       <StoreLogo
