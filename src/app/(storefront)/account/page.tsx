@@ -1,7 +1,8 @@
 import { Suspense } from "react";
 
-import { getCurrentUser } from "@/lib/auth/helpers";
+import { assertSuccess } from "@/lib/data-access/helpers";
 import { EditNameDialog } from "@/modules/auth/components/dialogs/edit-name-dialog";
+import { getUser } from "@/modules/auth/server/queries";
 
 export default function () {
   return (
@@ -17,8 +18,8 @@ export default function () {
 }
 
 async function ResolvedProfile() {
-  const user = await getCurrentUser();
-  if (!user) return null;
+  const result = await getUser();
+  const user = assertSuccess(result);
 
   return (
     <>
