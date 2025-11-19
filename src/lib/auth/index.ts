@@ -3,6 +3,7 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
 
 import { db } from "@/db";
+import type { UserRole } from "@/db/schema/users";
 import {
   generateResetPasswordEmail,
   generateVerifyEmail,
@@ -38,6 +39,14 @@ export const auth = betterAuth({
       });
     },
   },
+  user: {
+    additionalFields: {
+      role: {
+        type: "string",
+        input: false,
+      },
+    },
+  },
   rateLimit: { enabled: false },
   session: {
     cookieCache: {
@@ -55,3 +64,7 @@ export const auth = betterAuth({
     cookiePrefix: "storewise",
   },
 });
+
+export type User = typeof auth.$Infer.Session.user & {
+  role: UserRole;
+};
