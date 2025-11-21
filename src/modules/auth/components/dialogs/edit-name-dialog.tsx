@@ -25,7 +25,7 @@ import { FieldGroup } from "@/components/ui/field";
 import { authClient } from "@/lib/auth/client";
 
 import { signUpSchema } from "../../schema/auth-schema";
-import { revalidateUser } from "../../server/mutations";
+import { revalidate } from "../../server/mutations";
 
 const schema = signUpSchema.pick({ name: true });
 type Schema = z.infer<typeof schema>;
@@ -61,7 +61,7 @@ export function EditNameDialog({ name }: Props) {
         },
         onSuccess: async () => {
           toast.success("Name has been updated.");
-          await revalidateUser();
+          await revalidate("/account");
           form.reset({ name: values.name });
           setOpen(false);
         },
