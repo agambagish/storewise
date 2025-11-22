@@ -1,10 +1,12 @@
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
+import type { Session } from "better-auth";
 import { DrizzleQueryError } from "drizzle-orm";
 
 import type { UserRole } from "@/db/schema/users";
 import type { User } from "@/lib/auth";
-import { getCurrentUser } from "@/lib/auth/helpers";
+import { auth } from "@/lib/auth";
 
 import type { DalError, DalReturn } from "./types";
 import {
@@ -71,20 +73,36 @@ export function assertSuccess<T, E extends DalError>(
  * The function `executeWithAuth` executes a given operation with authentication and role-based access control.
  */
 export async function executeWithAuth<T, E extends DalError>(
-  operation: (user: User) => Promise<DalReturn<T, E>>,
+  operation: ({
+    user,
+    session,
+  }: {
+    user: User;
+    session: Session;
+  }) => Promise<DalReturn<T, E>>,
   { allowedRoles }: { allowedRoles?: UserRole[] } = {},
 ) {
-  const user = await getCurrentUser();
+  const data = await auth.api.getSession({
+    headers: await headers(),
+  });
 
-  if (user === null) {
+  const ctx = data && {
+    session: data.session,
+    user: data.user as User,
+  };
+
+  if (ctx === null) {
     return createErrorReturn({ type: "no-user" });
   }
 
-  if (allowedRoles && !allowedRoles.includes(user.role)) {
+  if (allowedRoles && !allowedRoles.includes(ctx.user.role)) {
     return createErrorReturn({ type: "no-access" });
   }
 
-  return operation(user);
+  return operation({
+    user: ctx.user,
+    session: ctx.session,
+  });
 }
 
 /**
