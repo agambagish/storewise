@@ -1,6 +1,9 @@
 import { Suspense } from "react";
 
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { CardHeaderSkeleton } from "@/components/skeletons/card-header-skeleton";
+import { FormFieldSkeleton } from "@/components/skeletons/form-field-skeleton";
+import { SessionCardSkeleton } from "@/components/skeletons/session-card-skeleton";
+import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { assertSuccess } from "@/lib/data-access/helpers";
 import { ActiveDevices } from "@/modules/auth/components/active-devices";
@@ -16,14 +19,14 @@ export default function () {
           Manage your password and email settings.
         </p>
       </div>
-      <Suspense fallback={<ResolvedCardsSkeleton />}>
-        <ResolvedCards />
+      <Suspense fallback={<ResolvedSectionSkeleton />}>
+        <ResolvedSection />
       </Suspense>
     </div>
   );
 }
 
-async function ResolvedCards() {
+async function ResolvedSection() {
   const result = await getSessions();
   const { currentSession, otherSessions } = assertSuccess(result);
 
@@ -38,32 +41,20 @@ async function ResolvedCards() {
   );
 }
 
-function ResolvedCardsSkeleton() {
+function ResolvedSectionSkeleton() {
   return (
     <>
       <Card>
-        <CardHeader>
-          <Skeleton className="h-4 w-32" />
-          <Skeleton className="h-5 w-64" />
-        </CardHeader>
+        <CardHeaderSkeleton />
         <CardContent>
           <div className="flex flex-col gap-7">
-            <div className="flex flex-col gap-4">
-              <Skeleton className="h-3.5 w-24" />
-              <Skeleton className="h-9 w-full" />
-            </div>
+            <FormFieldSkeleton />
             <div className="flex gap-7">
-              <div className="flex w-full flex-col gap-4">
-                <Skeleton className="h-3.5 w-24" />
-                <Skeleton className="h-9 w-full" />
-              </div>
-              <div className="flex w-full flex-col gap-4">
-                <Skeleton className="h-3.5 w-24" />
-                <Skeleton className="h-9 w-full" />
-              </div>
+              <FormFieldSkeleton className="w-full" />
+              <FormFieldSkeleton className="w-full" />
             </div>
             <div className="flex items-center gap-3">
-              <Skeleton className="size-4 shrink-0 rounded-[4px]" />
+              <Skeleton className="size-4 shrink-0 rounded-lg" />
               <Skeleton className="h-3.5 w-52" />
             </div>
             <Skeleton className="h-9 w-full" />
@@ -71,41 +62,10 @@ function ResolvedCardsSkeleton() {
         </CardContent>
       </Card>
       <Card>
-        <CardHeader>
-          <Skeleton className="h-4 w-32" />
-          <Skeleton className="h-5 w-64" />
-        </CardHeader>
+        <CardHeaderSkeleton />
         <CardContent className="grid grid-cols-1 gap-4 xl:grid-cols-2">
-          <Card>
-            <CardHeader>
-              <Skeleton className="h-4 w-32" />
-            </CardHeader>
-            <CardContent className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <Skeleton className="size-12 rounded-md" />
-                <div className="space-y-1">
-                  <Skeleton className="h-5 w-24" />
-                  <Skeleton className="h-5 w-52" />
-                  <Skeleton className="h-5 w-52" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
-              <Skeleton className="h-4 w-32" />
-            </CardHeader>
-            <CardContent className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <Skeleton className="size-12 rounded-md" />
-                <div className="space-y-1">
-                  <Skeleton className="h-5 w-24" />
-                  <Skeleton className="h-5 w-52" />
-                  <Skeleton className="h-5 w-52" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+          <SessionCardSkeleton />
+          <SessionCardSkeleton />
         </CardContent>
       </Card>
     </>

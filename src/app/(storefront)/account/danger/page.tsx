@@ -2,6 +2,7 @@ import { Suspense } from "react";
 
 import { AlertTriangle } from "lucide-react";
 
+import { CardHeaderSkeleton } from "@/components/skeletons/card-header-skeleton";
 import {
   Card,
   CardContent,
@@ -23,14 +24,14 @@ export default function () {
           Irreversible and destructive actions.
         </p>
       </div>
-      <Suspense fallback={<ResolvedCardSkeleton />}>
-        <ResolvedCard />
+      <Suspense fallback={<ResolvedSectionSkeleton />}>
+        <ResolvedSection />
       </Suspense>
     </div>
   );
 }
 
-async function ResolvedCard() {
+async function ResolvedSection() {
   const result = await getUser();
   assertSuccess(result);
 
@@ -53,13 +54,10 @@ async function ResolvedCard() {
   );
 }
 
-export function ResolvedCardSkeleton() {
+export function ResolvedSectionSkeleton() {
   return (
     <Card className="border-destructive/50">
-      <CardHeader>
-        <Skeleton className="h-4 w-32" />
-        <Skeleton className="h-5 w-64" />
-      </CardHeader>
+      <CardHeaderSkeleton />
       <CardContent>
         <Skeleton className="h-9 w-[155px]" />
       </CardContent>

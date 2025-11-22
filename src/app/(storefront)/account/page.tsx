@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 
+import { Skeleton } from "@/components/ui/skeleton";
 import { assertSuccess } from "@/lib/data-access/helpers";
 import { EditNameDialog } from "@/modules/auth/components/dialogs/edit-name-dialog";
 import { getUser } from "@/modules/auth/server/queries";
@@ -9,15 +10,15 @@ export default function () {
     <div className="space-y-8">
       <h2 className="font-semibold text-foreground text-xl">Profile Details</h2>
       <div className="space-y-6">
-        <Suspense fallback={<ResolvedProfileSkeleton />}>
-          <ResolvedProfile />
+        <Suspense fallback={<ResolvedSectionSkeleton />}>
+          <ResolvedSection />
         </Suspense>
       </div>
     </div>
   );
 }
 
-async function ResolvedProfile() {
+async function ResolvedSection() {
   const result = await getUser();
   const user = assertSuccess(result);
 
@@ -53,18 +54,14 @@ function ProfileFieldRow({
   );
 }
 
-function ResolvedProfileSkeleton() {
+function ResolvedSectionSkeleton() {
   return (
     <>
-      <ProfileFieldRow
-        label={<div className="h-7 w-24 animate-pulse rounded-md bg-accent" />}
-      >
-        <div className="h-7 w-60 animate-pulse rounded-md bg-accent" />
+      <ProfileFieldRow label={<Skeleton className="h-7 w-24" />}>
+        <Skeleton className="h-7 w-60" />
       </ProfileFieldRow>
-      <ProfileFieldRow
-        label={<div className="h-7 w-24 animate-pulse rounded-md bg-accent" />}
-      >
-        <div className="h-7 w-60 animate-pulse rounded-md bg-accent" />
+      <ProfileFieldRow label={<Skeleton className="h-7 w-24" />}>
+        <Skeleton className="h-7 w-60" />
       </ProfileFieldRow>
     </>
   );
