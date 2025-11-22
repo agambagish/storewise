@@ -46,6 +46,9 @@ export const auth = betterAuth({
         input: false,
       },
     },
+    deleteUser: {
+      enabled: true,
+    },
   },
   rateLimit: { enabled: false },
   session: {
