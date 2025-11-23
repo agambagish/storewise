@@ -1,4 +1,5 @@
 import { StoreLogo } from "@/components/store-logo";
+import { UserButton } from "@/modules/auth/components/user-button";
 
 import { MainNav } from "./main-nav";
 
@@ -16,7 +17,8 @@ export function Header() {
             />
             <MainNav />
           </div>
-          {/* TODO: Cart Sheet & User Dropdown */}
+          {/* TODO: Cart Sheet */}
+          <UserButton />
         </div>
       </div>
     </header>
