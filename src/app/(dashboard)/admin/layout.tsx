@@ -6,12 +6,10 @@ export default function ({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider>
       <AdminDashboardSidebar />
-      <SidebarInset className="@container/content">
+      <SidebarInset>
         <div className="h-full w-full flex-1">
           <DashboardHeader />
-          <div className="@7xl/content:mx-auto @7xl/content:w-full @7xl/content:max-w-7xl p-4 sm:p-6 lg:p-8">
-            {children}
-          </div>
+          {children}
         </div>
       </SidebarInset>
     </SidebarProvider>

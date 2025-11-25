@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 
 import { AlertTriangle, ShieldCheck, UserCircle2 } from "lucide-react";
 
+import { Container } from "@/components/container";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -30,7 +31,7 @@ export default function ({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   return (
-    <div className="mx-auto max-w-7xl p-4 sm:p-6 lg:p-8">
+    <Container>
       <div className="grid grid-cols-1 gap-8 md:grid-cols-[240px_1fr]">
         <aside className="space-y-1">
           <div className="mb-8">
@@ -60,6 +61,6 @@ export default function ({ children }: { children: React.ReactNode }) {
         </aside>
         <div className="min-w-0">{children}</div>
       </div>
-    </div>
+    </Container>
   );
 }

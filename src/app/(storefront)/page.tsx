@@ -1,9 +1,9 @@
-import { PageCenter } from "@/components/page-center";
+import { Container } from "@/components/container";
 
 export default function () {
   return (
-    <PageCenter>
+    <Container>
       <p>Home Page</p>
-    </PageCenter>
+    </Container>
   );
 }

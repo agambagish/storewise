@@ -78,13 +78,17 @@ export function UserButton() {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link href="/profile">
+          <Link href="/account">
             <UserPen />
             Account
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link href={ctx.user.role === "SELLER" ? "/dashboard" : "/sell"}>
+          <Link
+            href={
+              ctx.user.role === "SELLER" ? "/dashboard" : "/setup-your-store"
+            }
+          >
             {ctx.user.role === "SELLER" ? <LayoutDashboard /> : <Store />}
             {ctx.user.role === "SELLER" ? "Dashboard" : "Setup Your Store"}
           </Link>

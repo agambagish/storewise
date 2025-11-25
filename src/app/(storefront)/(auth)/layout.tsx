@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-import { PageCenter } from "@/components/page-center";
+import { Container } from "@/components/container";
 import { StoreLogo } from "@/components/store-logo";
 import { FieldDescription } from "@/components/ui/field";
 import { getCurrentUser } from "@/lib/auth/helpers";
@@ -11,7 +11,12 @@ export default async function ({ children }: { children: React.ReactNode }) {
   if (user !== null) redirect("/");
 
   return (
-    <PageCenter gap="lg">
+    <Container
+      height="storefront"
+      gap="lg"
+      paddingDirection="x"
+      content="center"
+    >
       <StoreLogo
         name="Storewise"
         href="/"
@@ -26,6 +31,6 @@ export default async function ({ children }: { children: React.ReactNode }) {
           <Link href="#">Privacy Policy</Link>.
         </FieldDescription>
       </div>
-    </PageCenter>
+    </Container>
   );
 }

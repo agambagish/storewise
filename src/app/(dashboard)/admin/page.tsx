@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { Construction } from "lucide-react";
 
+import { Container } from "@/components/container";
 import {
   Empty,
   EmptyDescription,
@@ -16,16 +17,18 @@ export const metadata: Metadata = {
 
 export default function () {
   return (
-    <Empty>
-      <EmptyHeader>
-        <EmptyMedia variant="icon">
-          <Construction />
-        </EmptyMedia>
-        <EmptyTitle>Work In Progress</EmptyTitle>
-        <EmptyDescription>
-          I&apos;m currently building this section.
-        </EmptyDescription>
-      </EmptyHeader>
-    </Empty>
+    <Container height="dashboard">
+      <Empty>
+        <EmptyHeader>
+          <EmptyMedia variant="icon">
+            <Construction />
+          </EmptyMedia>
+          <EmptyTitle>Work In Progress</EmptyTitle>
+          <EmptyDescription>
+            I&apos;m currently building this section.
+          </EmptyDescription>
+        </EmptyHeader>
+      </Empty>
+    </Container>
   );
 }
