@@ -24,6 +24,9 @@ export type DalError =
   | {
       type: "unknown-error";
       error: unknown;
+    }
+  | {
+      type: "conflict";
     };
 
 export class ThrowableDalError extends Error {

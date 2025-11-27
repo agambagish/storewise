@@ -20,10 +20,7 @@ export async function createStore(values: StoreSetupSchema) {
       });
 
       if (store !== undefined) {
-        return createErrorReturn({
-          type: "unknown-error",
-          error: "conflict",
-        });
+        return createErrorReturn({ type: "conflict" });
       }
 
       return executeDbOperation(async () => {

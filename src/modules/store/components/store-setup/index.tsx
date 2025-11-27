@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import { LoadingButton } from "@/components/loading-button";
 import { Button } from "@/components/ui/button";
 import { Field, FieldGroup } from "@/components/ui/field";
+import { getErrorMessage } from "@/lib/data-access/utils";
 
 import { STORE_SETUP_STEPS } from "../../lib/constants";
 import type { StoreSetupSchema } from "../../schema/store-setup-schema";
@@ -69,8 +70,7 @@ export function StoreSetup() {
     const res = await createStore(values);
 
     if (!res.success) {
-      // FIXME: valid error message
-      toast.error("error message");
+      toast.error(getErrorMessage(res.error));
     }
 
     if (res.success) {
