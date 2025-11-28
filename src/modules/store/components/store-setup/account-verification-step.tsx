@@ -37,6 +37,7 @@ export function AccountVerificationStep({ control }: Props) {
         name="pan"
         label="PAN"
         placeholder="ABCDE1234X"
+        autoFocus
       />
       {accountType === "BUSINESS" && (
         <FormInput

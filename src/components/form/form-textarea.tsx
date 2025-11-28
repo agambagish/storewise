@@ -13,6 +13,7 @@ export function FormTextarea<T extends FieldValues>(props: BaseProps<T>) {
           spellCheck="false"
           className="resize-none"
           {...field}
+          value={field.value ?? ""}
         />
       )}
     </FormBase>

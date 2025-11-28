@@ -16,6 +16,7 @@ export function PayoutSetupStep({ control }: Props) {
         name="accountNumber"
         label="Bank Account Number"
         placeholder="0110040500000013"
+        autoFocus
       />
       <FormInput
         control={control}

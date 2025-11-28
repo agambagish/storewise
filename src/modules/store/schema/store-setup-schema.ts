@@ -20,7 +20,8 @@ export const storeSetupSchema = createInsertSchema(stores, {
       .min(64, "Must be at least 64 characters long")
       .max(120, "Must be at most 120 characters long")
       .nullable()
-      .transform((val) => val ?? null),
+      .or(z.literal(""))
+      .transform((val) => val || null),
   accountHoldersName: (f) => f.nonempty("Can't be empty"),
 })
   .omit({
@@ -54,7 +55,8 @@ export const storeSetupSchema = createInsertSchema(stores, {
       .string()
       .regex(GST_REGEX, "Must be a valid GST (e.g., 19ABCPD1234E1Z5)")
       .nullable()
-      .transform((val) => val ?? null),
+      .or(z.literal(""))
+      .transform((val) => val || null),
   });
 
 export type StoreSetupSchema = z.infer<typeof storeSetupSchema>;
