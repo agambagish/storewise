@@ -61,7 +61,12 @@ export function ActionButton<T>({
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction disabled={isLoading} onClick={onClick} asChild>
+            <AlertDialogAction
+              disabled={isLoading}
+              onClick={onClick}
+              asChild
+              autoFocus
+            >
               <LoadingButton disabled={isLoading} loading={isLoading}>
                 Confirm
               </LoadingButton>

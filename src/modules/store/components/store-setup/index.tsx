@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-import { LoadingButton } from "@/components/loading-button";
+import { ActionButton } from "@/components/action-button";
 import { Button } from "@/components/ui/button";
 import { Field, FieldGroup } from "@/components/ui/field";
 import { getErrorMessage } from "@/lib/data-access/utils";
@@ -74,6 +74,7 @@ export function StoreSetup() {
     }
 
     if (res.success) {
+      toast.success("Your application has been submitted.");
       router.refresh();
     }
   }
@@ -81,6 +82,7 @@ export function StoreSetup() {
   function onKeyDown(e: React.KeyboardEvent) {
     if (e.key === "Enter") {
       e.preventDefault();
+      if (currentStep === STORE_SETUP_STEPS.length) return;
       onNext();
     }
   }
@@ -98,7 +100,12 @@ export function StoreSetup() {
             {currentStepData.description}
           </p>
         </div>
-        <form onSubmit={form.handleSubmit(onSubmit)} onKeyDown={onKeyDown}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          onKeyDown={
+            currentStep < STORE_SETUP_STEPS.length ? onKeyDown : undefined
+          }
+        >
           <FieldGroup>
             {currentStep === 1 && <StoreDetailsStep control={form.control} />}
             {currentStep === 2 && (
@@ -120,21 +127,24 @@ export function StoreSetup() {
                   Back
                 </Button>
               )}
-              <LoadingButton
-                type="button"
-                className="flex-1"
-                onClick={async () => {
-                  if (currentStep < STORE_SETUP_STEPS.length) {
-                    await onNext();
-                  } else {
-                    form.handleSubmit(onSubmit)();
-                  }
-                }}
-                disabled={isSubmitting}
-                loading={isSubmitting}
-              >
-                {currentStep < STORE_SETUP_STEPS.length ? "Next" : "Submit"}
-              </LoadingButton>
+              {currentStep < STORE_SETUP_STEPS.length ? (
+                <Button type="button" className="flex-1" onClick={onNext}>
+                  Next
+                </Button>
+              ) : (
+                <ActionButton
+                  className="flex-1"
+                  requireConfirmation
+                  confirmationDescription="Make sure all your information is correct. Please review your details before submitting."
+                  action={async () => {
+                    return await form.handleSubmit(onSubmit)();
+                  }}
+                  disabled={isSubmitting}
+                  autoFocus
+                >
+                  Submit
+                </ActionButton>
+              )}
             </Field>
           </FieldGroup>
         </form>
