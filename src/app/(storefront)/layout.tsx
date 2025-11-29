@@ -1,5 +1,5 @@
-import { Footer } from "@/modules/home/ui/components/footer";
-import { Header } from "@/modules/home/ui/components/header";
+import { Footer } from "@/modules/home/components/footer";
+import { Header } from "@/modules/home/components/header";
 
 export default function ({ children }: { children: React.ReactNode }) {
   return (

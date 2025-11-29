@@ -1,5 +1,5 @@
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { AdminDashboardSidebar } from "@/modules/dashboard/components/admin-dashboard-sidebar";
+import { AdminDashboardSidebar } from "@/modules/admin/components/admin-dashboard-sidebar";
 import { DashboardHeader } from "@/modules/dashboard/components/dashboard-header";
 
 export default function ({ children }: { children: React.ReactNode }) {
