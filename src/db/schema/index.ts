@@ -2,6 +2,7 @@ export { accounts } from "./accounts";
 export { sessions } from "./sessions";
 export {
   storeAccountTypeEnum,
+  storeCashfreeVendorStatusEnum,
   storeStatusEnum,
   stores,
   storesRelations,

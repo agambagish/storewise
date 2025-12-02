@@ -19,7 +19,7 @@ export async function getCurrentStore() {
     });
 
     if (store !== undefined) {
-      if (store.status !== "IN_VERIFICATION") {
+      if (store.status !== "PENDING") {
         redirect("/dashboard");
       } else {
         return createErrorReturn({ type: "conflict" });
