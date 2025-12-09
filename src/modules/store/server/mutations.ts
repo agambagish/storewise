@@ -3,7 +3,7 @@
 "use server";
 
 import { db } from "@/db";
-import { stores } from "@/db/schema";
+import { storeApplications } from "@/db/schema";
 import { env } from "@/env";
 import { executeDbOperation, executeWithAuth } from "@/lib/data-access/helpers";
 import { createErrorReturn } from "@/lib/data-access/types";
@@ -24,7 +24,7 @@ export async function createStore(values: StoreSetupSchema) {
       }
 
       return executeDbOperation(async () => {
-        await db.insert(stores).values({
+        await db.insert(storeApplications).values({
           ...values,
           userId: user.id,
           accountNumber: encrypt(values.accountNumber, env.BETTER_AUTH_SECRET),

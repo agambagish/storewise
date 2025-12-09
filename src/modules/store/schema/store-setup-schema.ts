@@ -1,7 +1,7 @@
 import { createInsertSchema } from "drizzle-zod";
 import z from "zod";
 
-import { stores } from "@/db/schema";
+import { storeApplications, stores } from "@/db/schema";
 
 import {
   ACCOUNT_NUMBER_REGEX,
@@ -10,7 +10,7 @@ import {
   PAN_REGEX,
 } from "../lib/constants";
 
-export const storeSetupSchema = createInsertSchema(stores, {
+export const storeSetupSchema = createInsertSchema(storeApplications, {
   name: (f) =>
     f
       .min(3, "Must be at least 3 characters long")
@@ -31,8 +31,8 @@ export const storeSetupSchema = createInsertSchema(stores, {
     accountType: true,
     pan: true,
     gst: true,
-    cfVendorId: true,
     status: true,
+    submittedAt: true,
   })
   .extend({
     accountNumber: z

@@ -1,8 +1,12 @@
 export { accounts } from "./accounts";
 export { sessions } from "./sessions";
 export {
+  storeApplicationStatusEnum,
+  storeApplications,
+  storeApplicationsRelations,
+} from "./store-applications";
+export {
   storeAccountTypeEnum,
-  storeCashfreeVendorStatusEnum,
   storeStatusEnum,
   stores,
   storesRelations,

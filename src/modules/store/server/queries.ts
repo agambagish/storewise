@@ -13,19 +13,20 @@ import {
 
 export async function getCurrentStore() {
   return executeWithAuth(async ({ user }) => {
-    const store = await db.query.stores.findFirst({
-      where: (stores, { eq }) => eq(stores.userId, user.id),
+    const recentApplication = await db.query.storeApplications.findFirst({
+      where: (storeApplications, { eq }) =>
+        eq(storeApplications.userId, user.id),
+      orderBy: (storeApplications, { desc }) =>
+        desc(storeApplications.submittedAt),
       columns: { status: true },
     });
 
-    if (store !== undefined) {
-      if (store.status !== "PENDING") {
-        redirect("/dashboard");
-      } else {
-        return createErrorReturn({ type: "conflict" });
-      }
-    }
+    const status = recentApplication?.status;
 
-    return createSuccessReturn("ok");
+    return status === "PENDING"
+      ? createErrorReturn({ type: "conflict" })
+      : status === "APPROVED"
+        ? redirect("/dashboard")
+        : createSuccessReturn("ok");
   });
 }
