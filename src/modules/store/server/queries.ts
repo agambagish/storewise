@@ -17,7 +17,7 @@ export async function getCurrentStore() {
       where: (storeApplications, { eq }) =>
         eq(storeApplications.userId, user.id),
       orderBy: (storeApplications, { desc }) =>
-        desc(storeApplications.submittedAt),
+        desc(storeApplications.createdAt),
       columns: { status: true },
     });
 

@@ -33,7 +33,7 @@ export const storeApplications = pgTable("store_applications", {
   accountType: storeAccountTypeEnum().notNull(),
   pan: jsonb().$type<EncryptedData>().notNull(),
   gst: jsonb().$type<EncryptedData>(),
-  submittedAt: timestamp().notNull().defaultNow(),
+  createdAt: timestamp().notNull().defaultNow(),
 });
 
 export const storeApplicationsRelations = relations(
